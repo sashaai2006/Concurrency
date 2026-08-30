@@ -70,7 +70,7 @@ ThreadPool<Task>::~ThreadPool() {
 template <typename Task>
 template <typename U>
 void ThreadPool<Task>::Add(U&& task) {
-  tasks_.Push(std::forward(task));
+  tasks_.Push(std::forward<U>(task));
 }
 
 }  // namespace sync

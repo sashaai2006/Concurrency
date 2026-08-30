@@ -49,11 +49,11 @@ template <typename T>
 template <typename U>
 void BlockQueue<T>::Push(U&& t) {
   {
-    std::lock_guard<std::mutex> lock(mtx_);
+    std::lock_guard lock(mtx_);
     if (!open_) {
       return;
     }
-    queue_.push(std::forward(t));
+    queue_.push(std::forward<U>(t));
   }
   cv_.notify_one();
 }
@@ -72,13 +72,13 @@ std::optional<T> BlockQueue<T>::Get() {
 
 template <typename T>
 bool BlockQueue<T>::Empty() {
-  std::lock_guard<std::mutex> lock(mtx_);
+  std::lock_guard lock(mtx_);
   return queue_.empty();
 }
 
 template <typename T>
 size_t BlockQueue<T>::Size() {
-  std::lock_guard<std::mutex> lock(mtx_);
+  std::lock_guard lock(mtx_);
   return queue_.size();
 }
 

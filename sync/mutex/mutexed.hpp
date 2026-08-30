@@ -39,7 +39,7 @@ class Mutexed {
   };
 
   template <class... Args>
-  explicit Mutexed(Args&&... args) : t_(std::forward(args)...) {}
+  explicit Mutexed(Args&&... args) : t_(std::forward<Args>(args)...) {}
 
   OwnerRef Acquire() {
     return OwnerRef(mutex_, t_);
